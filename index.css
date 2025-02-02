@@ -18,20 +18,23 @@ body {
   height: 30px;
 }
 
-.container {
+#grid-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: auto;
   margin-top: 15px;
   margin-bottom: 200px;
   height: 960px;
   width: 960px;
-  border: 3px solid black;
+  border: 5px solid #000;
 }
 
-.box {
-  border: 1px solid #000;
+#grid-container .row {
+  display: flex;
   width: 100%;
-  flex-basis: 6%;
-  flex-grow: 1;
+}
+
+#grid-container .row > div {
+  width: 100%;
+  aspect-ratio: 1/1;
 }
