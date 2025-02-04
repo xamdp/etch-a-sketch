@@ -1,54 +1,61 @@
 
 const genBtn = document.getElementById('genBtn');
 genBtn.addEventListener('click', function() {
-	const input = prompt('Enter a number of box per side:')
+	const input = prompt('Enter a number of box per side:');
 	generateGridBox(input);
 });
 
-/*generate the grix-box*/
 function generateGridBox(boxes) {
-	const totalBoxes = (boxes * boxes); 
-	const containerHasChild = document.querySelector('.container').hasChildNodes();
-	if (containerHasChild) {
-		const parent =  document.querySelector('.container');
-		parent.replaceChildren();
-		createBox(totalBoxes);
-	} else {
-		createBox(totalBoxes);
+	const container = document.querySelector('#container');
+	container.replaceChildren();
+	reachLimit(boxes)
+}
+
+function reachLimit(boxes) {
+	const LIMIT = 100;
+	let numberOfBoxes = boxes;
+
+	if (numberOfBoxes > LIMIT) {
+		numberOfBoxes = LIMIT;
+		createBoxes(numberOfBoxes);
+	}
+	createBoxes(numberOfBoxes);
+}
+
+let boxID = 0;
+function createBoxes (boxesPerSide) {
+	for (let i = 0; i < boxesPerSide; i++) {
+
+		const rowOfBoxes = document.createElement('div');
+		rowOfBoxes.classList.add('row-box', `row-${i}`);
+		document.getElementById('container').appendChild(rowOfBoxes);
+
+		for (j = 0; j < boxesPerSide; j++) {
+
+			let box = document.createElement('div');
+			box.id = 'box-' + boxID;
+			box.style.border = "1px solid #000";
+			document.querySelector(`.row-${i}`).appendChild(box);
+			changeColors(box);
+			boxID++;
+		}
 	}
 }
 
-/*creates the actual boxes*/
-function createBox (totalBoxes) {
-	const container = document.querySelector('.container');
-	for (let i = 0; i < totalBoxes; i++) {
-		const div = document.createElement('div');
-		div.classList.add('box', 'color-box')
-		container.appendChild(div);
-	}
-
-	const boxes = document.querySelectorAll('.color-box')
-	boxes.forEach((box) => {
-		box.addEventListener("mouseover", () => {
-			const currentColor = box.style.backgroundColor;
-			if (currentColor === '') {
-				box.style.backgroundColor = 'pink';
-			} else if (currentColor  === 'pink'){
-				box.style.backgroundColor = 'red';
-			} else if (currentColor === 'red') {
-				box.style.backgroundColor = 'pink';
-			}
-		})
-	})
-
-	boxes.forEach((box) => {
-		box.addEventListener("mouseout", () => {
-			const currentColor = box.style.backgroundColor;
-			if (currentColor === 'red') {
-				box.style.backgroundColor = 'red';
-			} else if (currentColor  === 'red'){
-				box.style.backgroundColor = 'pink';
-			}
-		})
-	})
+function changeColors(box) {
+	let eachBox = box;
+	eachBox.addEventListener("mouseover", () => {
+		const currentColor = box.style.backgroundColor;
+		if (currentColor === '') {
+			box.style.backgroundColor = 'pink';
+		} else if (currentColor  === 'pink'){
+			box.style.backgroundColor = 'magenta';
+		} else if (currentColor === 'magenta') {
+			box.style.backgroundColor = 'red';
+		} else if (currentColor === 'red') {
+			box.style.backgroundColor = 'orange';
+		} else if (currentColor === 'orange') {
+			box.style.backgroundColor = '';
+		}
+	});
 }
