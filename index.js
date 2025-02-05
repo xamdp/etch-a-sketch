@@ -45,17 +45,14 @@ function createBoxes (boxesPerSide) {
 function changeColors(box) {
 	let eachBox = box;
 	eachBox.addEventListener("mouseover", () => {
-		const currentColor = box.style.backgroundColor;
-		if (currentColor === '') {
-			box.style.backgroundColor = 'pink';
-		} else if (currentColor  === 'pink'){
-			box.style.backgroundColor = 'magenta';
-		} else if (currentColor === 'magenta') {
-			box.style.backgroundColor = 'red';
-		} else if (currentColor === 'red') {
-			box.style.backgroundColor = 'orange';
-		} else if (currentColor === 'orange') {
-			box.style.backgroundColor = '';
-		}
+		var randomColor = getRandomColor();
+		box.style.backgroundColor = randomColor;
 	});
+}
+
+function getRandomColor() {
+	var r = Math.floor(Math.random() * 256); // Random between 0-255
+	var g = Math.floor(Math.random() * 256);
+	var b = Math.floor(Math.random() * 256);
+	return 'rgb(' +  r  + ',' + g + ', ' + b + ')';
 }
